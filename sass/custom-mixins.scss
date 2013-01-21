@@ -1,0 +1,131 @@
+//----- - Custom mixin for breakpoints / queries.
+//----- - Concept taken from http://css-tricks.com/media-queries-sass-3-2-and-codekit/
+//----- - useas follows:
+// @include breakpoint([small,medium,large]) { style:here; }
+  @mixin breakpoint($point) {
+
+    // check for up to landscape phone
+    @if $point == 'small' {
+      @media (max-width: 767px) { @content; }
+    }
+
+    // check for up to portrait tablet
+    @if $point == 'medium' {
+      @media (min-width: 768px) and (max-width: 979px) { @content; }
+    }
+
+    // check for up to portrait tablet
+    @if $point == 'large' {
+      @media (min-width: 1200px) { @content; }
+    }
+
+    // weird spot in responsive wrote it for the sidebar module "tablet" tweaks, needed that layout for desktop too
+    @if $point == 'medium-large' {
+      @media (min-width: 979px) and (max-width: 1200px) { @content; }
+    }
+
+  }
+
+
+
+
+//----- - Generate CSS Triangle
+//----- - Extracted from zurb-foundation.
+  @mixin cssTriangle($triangleSize, $triangleColor, $triangleDirection) {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: solid   $triangleSize;
+    @if ($triangleDirection == top) {
+      border-color: $triangleColor transparent transparent transparent;
+    }
+    @if ($triangleDirection == bottom) {
+      border-color: transparent transparent $triangleColor transparent;
+    }
+    @if ($triangleDirection == left) {
+      border-color: transparent transparent transparent $triangleColor;
+    }
+    @if ($triangleDirection == right) {
+      border-color: transparent $triangleColor transparent transparent;
+    }
+    // .example { @include css-triangle(5px, #fff, bottom); }
+  }
+
+
+
+
+//----- - Vertical Gradient BG (extracted from twitter bootstrap)
+  @mixin vertical($startColor: #555, $endColor: #333) {
+    background-color: mix($startColor, $endColor, 60%);
+    background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(top, $startColor, $endColor); // IE10
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
+    background-image: linear-gradient(top, $startColor, $endColor); // The standard
+    background-repeat: repeat-x;
+    //filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",$startColor,$endColor)); // IE9 and down
+  }
+
+//----- - Horizontal Gradient BG (revision of vertical gradient class)
+  @mixin horizontal($startColor: #555, $endColor: #333) {
+    background-color: mix($startColor, $endColor, 60%);
+    background-image: -moz-linear-gradient(left, $startColor, $endColor); // FF 3.6+
+    background-image: -ms-linear-gradient(left, $startColor, $endColor); // IE10
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
+    background-image: -webkit-linear-gradient(left, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+    background-image: -o-linear-gradient(left, $startColor, $endColor); // Opera 11.10
+    background-image: linear-gradient(left, $startColor, $endColor); // The standard
+    background-repeat: repeat-x;
+    //filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",$startColor,$endColor)); // IE9 and down
+  }
+
+//----- - Vertical Gradient BG and Image (extracted from twitter bootstrap)
+   @mixin verticalImage($url, $startColor: #555, $endColor: #333) {
+    background-color: mix($startColor, $endColor, 60%);
+    background-image: $url, -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
+    background-image: $url, -ms-linear-gradient(top, $startColor, $endColor); // IE10
+    background-image: $url, -webkit-gradient(linear, 0 0, 0 100%, from($startColor), to($endColor)); // Safari 4+, Chrome 2+
+    background-image: $url, -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+    background-image: $url, -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
+    background-image: $url, linear-gradient(top, $startColor, $endColor); // The standard
+    background-repeat: no-repeat;
+    background-position: center center;
+    //filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",$startColor,$endColor)); // IE9 and down
+  }
+
+
+
+//----- - Drop shadows
+  @mixin bootstrap-box-shadow($shadow: 0 1px 3px rgba(0,0,0,.25)) {
+    -webkit-box-shadow: $shadow;
+       -moz-box-shadow: $shadow;
+            box-shadow: $shadow;
+  }
+
+//----- - Custom CSS3 transition
+  @mixin custom-transition($transition: all 0.2s ease-in-out) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+  }
+
+//----- - Custom CSS3 Transform
+  @mixin custom-transform($transform: rotate(-3deg) ) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -o-transform: $transform;
+    -ms-transform: $transform;
+    transform: $transform;
+  }
+
+
+//----- - Custom Text Shadow
+@mixin text-shadow($shadow) {
+    -webkit-text-shadow: $shadow;
+    -moz-text-shadow: $shadow;
+    -o-text-shadow: $shadow;
+    text-shadow: $shadow;
+}
